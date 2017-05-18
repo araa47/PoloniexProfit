@@ -14,14 +14,21 @@ def getApiDetails():
 	polo_secret = apikey.my_polo_secret
 	return polo_key, polo_secret
 
+# Grab the key/secret pair from the apikey.py file 
 polo_key, polo_secret = getApiDetails()
-
 
 # Initialize 
 pol = polo.poloniex(polo_key, polo_secret )
+# This is for different colour outputs of text 
 term = Terminal()
 
 
+
+
+
+
+
+# Get the detailed Overview of any Currency Pair, currency_pair = "BTC_STR" = string
 def get_overview(currency_pair):
 	all_ticker = pol.returnTicker()
 	currency_ticker = all_ticker[currency_pair]
@@ -64,7 +71,7 @@ def get_balance():
 	balance_currency = []
 	balance_amount = []
 	for key in total_balance:
-		if int(100000*float(total_balance[key])) > 0:
+		if int(10000000000 *float(total_balance[key])) > 0:
 			balance_currency.append(key)
 			balance_amount.append(total_balance[key])
 	return balance_currency, balance_amount
@@ -72,6 +79,7 @@ def get_balance():
 for i in range(10000000):
 	get_overview("BTC_STR")
 #	get_overview("BTC_LT")
+	#print get_balance()
 	time.sleep(1)
 
 #hist = pol.returnTradeHistory("BTC_ETH")
