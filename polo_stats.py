@@ -4,11 +4,21 @@ import ast
 import json 
 import time
 from blessings import Terminal 
+import apikey 
+
+
+
 # API Key, Secret
+def getApiDetails():
+	polo_key = apikey.my_polo_key
+	polo_secret = apikey.my_polo_secret
+	return polo_key, polo_secret
+
+polo_key, polo_secret = getApiDetails()
 
 
 # Initialize 
-pol = polo.poloniex(my_polo_key,my_polo_secret)
+pol = polo.poloniex(polo_key, polo_secret )
 term = Terminal()
 
 
