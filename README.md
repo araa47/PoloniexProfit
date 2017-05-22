@@ -5,8 +5,41 @@ This program gives detailed overview of your last trades based on your current p
 ## Installation
 
 ```
-pip install -r requirements.txt 
+git clone https://github.com/araa47/PoloniexProfit.git 
 ```
+
+```
+cd PoloniexProfit 
+```
+
+1) Install to usr/local python library
+
+```
+sudo pip install -r requirements.txt 
+```
+
+2) VirtualEnvironment
+
+```
+cd ..
+```
+
+```
+virtualenv pypolo 
+```
+
+```
+source pypolo/bin/activate
+```
+
+```
+cd PoloniexProfit 
+```
+
+```
+pip install -r requirements.txt
+```
+
 
 
 ## API Key Configuration 
