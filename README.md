@@ -4,13 +4,20 @@ This program gives detailed overview of your last trades based on your current p
 
 ## Installation
 
+1) Clone the repository 
 ```
 git clone https://github.com/araa47/PoloniexProfit.git 
 ```
 
+2) Cd into the repository 
 ```
 cd PoloniexProfit 
 ```
+
+3) You can either install the python libraries to your system by following A or install them in a virtualenv by following B 
+
+
+### A
 
 1) Install to usr/local python library
 
@@ -18,24 +25,31 @@ cd PoloniexProfit
 sudo pip install -r requirements.txt 
 ```
 
-2) VirtualEnvironment
+### B 
+
+1) Cd to a directory outside
 
 ```
 cd ..
 ```
 
+2) Create a virtualenviroment , here i have named mine pypolo
+
 ```
 virtualenv pypolo 
 ```
+
+3) Activate the virtualenvironment
 
 ```
 source pypolo/bin/activate
 ```
 
+4) Cd into the project
 ```
 cd PoloniexProfit 
 ```
-
+5) Now locally install the requirements
 ```
 pip install -r requirements.txt
 ```
