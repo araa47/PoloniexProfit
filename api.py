@@ -93,8 +93,9 @@ class poloniex:
     # amount        Quantity of order
     # total         Total value of order (price * quantity)
     # type          sell or buy
-    def returnTradeHistory(self,currencyPair):
-        return self.api_query('returnTradeHistory',{"currencyPair":currencyPair})
+    def returnTradeHistory(self,currencyPair, start, end):
+        return self.api_query('returnTradeHistory',{"currencyPair":currencyPair, "start":start
+                                                    ,"end" : end})
  
     # Places a buy order in a given market. Required POST parameters are "currencyPair", "rate", and "amount". If successful, the method will return the order number.
     # Inputs:
