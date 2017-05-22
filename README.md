@@ -18,7 +18,7 @@ cd PoloniexProfit
    or install them in a virtualenv by following B 
 
 
-####### A
+##### A
 
 1) Install to usr/local python library
 
@@ -26,7 +26,7 @@ cd PoloniexProfit
 sudo pip install -r requirements.txt 
 ```
 
-####### B 
+##### B 
 
 1) Cd to a directory outside
 
