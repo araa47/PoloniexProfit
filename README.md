@@ -1,11 +1,24 @@
-# PoloniexProfit
+# Polo Stats 
 
-A simple poloniex portfolio analyzer
- 
-## UNDER CONSTRUCTION !!!
+This program gives detailed overview of your last trades based on your current poloniex balances
 
-## Instructions
+## Installation
 
-1. Please create a poloniex Api key/secret pair 
-2. Input your key and password into the sample_apikey.py file, and rename this file to apikey.py 
-3. You are ready to run! Simple type in '''python polo_stats.py" 
+```
+pip install -r requirements.txt 
+```
+
+
+## API Key Configuration 
+
+1) Open sample_apikey.py and enter your poloniex api key and secret 
+
+2) Rename the file to apikey.py 
+
+## Running 
+
+```
+python stats.py 
+
+```
+
