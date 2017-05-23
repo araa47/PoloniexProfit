@@ -94,7 +94,7 @@ def get_overview(currency_pair):
 		print "Your Purchase Price with fees: {} BTC".format(str(average_cost))
 		print "Current_Price: " + str(current_price)
 		net_profit += profit 
-		total_portfolio += (purchase_real_amount * float(current_price))
+		total_portfolio = total_portfolio +  float((purchase_real_amount * float(current_price)))
 		if profit < 0:
 		
 			 
@@ -128,11 +128,17 @@ def get_total_balance():
 
 def parse_args():
 	args = sys.argv 
-	if args[1] == "-l":
-		sleep_time = args[2]
-		return float(sleep_time)
-
-		
+	try:
+		if args[1] == "-l":
+			sleep_time = args[2]
+			return float(sleep_time)
+	except Exception as e:
+		print "Exception: " + str(e)
+		print "Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates" 
+		raise Exception("Try Again!")
+	else:
+		print "Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates" 
+		raise Exception("Try Again!")
 def main_program(sleep_time):
 	currency, amount = get_total_balance()
 	currency_pair = []
@@ -141,13 +147,12 @@ def main_program(sleep_time):
 			pair = "BTC_" + str(cur)
 			currency_pair.append(pair)
 	while True:
-		
 		btc_usd, portfolio = get_overview(currency_pair)
 		# Include BTC savings in net portfolio value 
 		for i in range(len(currency)):
 			if currency[i] == "BTC":
 				total_btc = amount[i] 
-				portfolio += total_btc
+				portfolio += float(total_btc)
 
 		print term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) ))
 		print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
