@@ -128,8 +128,9 @@ def main_program():
 	currency, amount = get_total_balance()
 	currency_pair = []
 	for cur in currency:
-		pair = "BTC_" + str(cur)
-		currency_pair.append(pair)
+		if cur != "BTC":
+			pair = "BTC_" + str(cur)
+			currency_pair.append(pair)
 	while True:
 		get_overview(currency_pair)
 

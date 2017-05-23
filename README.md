@@ -69,4 +69,6 @@ pip install -r requirements.txt
 python stats.py 
 
 ```
+## Mock Output
 
+![Image of Output](outputexample.png)
