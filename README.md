@@ -72,3 +72,11 @@ python stats.py
 ## Mock Output
 
 ![Image of Output](outputexample.png)
+
+## Extra Details 
+
+1) Currently the program only calculate BTC to other currency trades 
+
+2) The program only works on the latest trade history 
+
+3) The program will miss out your total BTC balance while calculating Net_Overview

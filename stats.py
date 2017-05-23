@@ -74,6 +74,7 @@ def get_overview(currency_pair):
 	btc_usd = get_btc_usd()
 	history_main = get_history()
 	net_profit = 0.0
+	total_portfolio = 0.0 
 	for cur in currency_pair:
 
 		history = history_main[cur]
@@ -93,7 +94,7 @@ def get_overview(currency_pair):
 		print "Your Purchase Price with fees: {} BTC".format(str(average_cost))
 		print "Current_Price: " + str(current_price)
 		net_profit += profit 
-		
+		total_portfolio += (purchase_real_amount * float(current_price))
 		if profit < 0:
 		
 			 
@@ -101,13 +102,15 @@ def get_overview(currency_pair):
 		else:
 					 
 
-			print term.yellow('Profit                 {} BTC/{} USD'.format(profit_btc, profit))
+			print term.bold_yellow_on_black('Profit                 {} BTC/{} USD'.format(profit_btc, profit))
 
 	if net_profit < 0:
 		print term.bold_bright_red_on_black('Net Loss                  {} USD'.format(net_profit))
 	else:
 		print term.yellow('Net Profit                 {} USD'.format(net_profit))
+	print term.bold_bright_white_on_black("Total Portfolio Value: " + str(total_portfolio) + "     USD: " + str(total_portfolio* float(btc_usd) ))
 	print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
+
 
 
 
