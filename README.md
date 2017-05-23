@@ -14,11 +14,9 @@ git clone https://github.com/araa47/PoloniexProfit.git
 cd PoloniexProfit 
 ```
 
-3) You can either install the python libraries to your system by following A 
-   or install them in a virtualenv by following B 
+3) You can either follow A OR B 
 
-
-##### A
+#### A: System Install 
 
 1) Install to usr/local python library
 
@@ -26,7 +24,7 @@ cd PoloniexProfit
 sudo pip install -r requirements.txt 
 ```
 
-##### B 
+#### B: Virtual Environment Install 
 
 1) Cd to a directory outside
 
