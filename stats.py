@@ -108,8 +108,8 @@ def get_overview(currency_pair):
 		print term.bold_bright_red_on_black('Net Loss                  {} USD'.format(net_profit))
 	else:
 		print term.yellow('Net Profit                 {} USD'.format(net_profit))
-	print term.bold_bright_white_on_black("Total Portfolio Value: " + str(total_portfolio) + "     USD: " + str(total_portfolio* float(btc_usd) ))
-	print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
+	
+	return btc_usd, total_portfolio
 
 
 
@@ -128,6 +128,7 @@ def get_total_balance():
 
 
 def main_program():
+	
 	currency, amount = get_total_balance()
 	currency_pair = []
 	for cur in currency:
@@ -135,8 +136,16 @@ def main_program():
 			pair = "BTC_" + str(cur)
 			currency_pair.append(pair)
 	while True:
-		get_overview(currency_pair)
+		
+		btc_usd, portfolio = get_overview(currency_pair)
+		# Include BTC savings in net portfolio value 
+		for i in range(len(currency)):
+			if currency[i] == "BTC":
+				total_btc = amount[i] 
+				portfolio += total_btc
 
+		print term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) ))
+		print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
 
 
 

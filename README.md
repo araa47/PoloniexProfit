@@ -77,4 +77,4 @@ python stats.py
 
 2) The program only works on the latest trade history 
 
-3) The program will miss out your total BTC balance while calculating Net_Overview
+3) The program now icludes total BTC balance while calculating Net_Overview
