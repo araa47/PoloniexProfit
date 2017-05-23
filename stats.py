@@ -6,7 +6,7 @@ import time
 from blessings import Terminal 
 import apikey 
 from retrying import retry 
-
+import sys
 
 # API Key, Secret
 def getApiDetails():
@@ -126,9 +126,14 @@ def get_total_balance():
 			balance_amount.append(total_balance[key])
 	return balance_currency, balance_amount
 
+def parse_args():
+	args = sys.argv 
+	if args[1] == "-l":
+		sleep_time = args[2]
+		return float(sleep_time)
 
-def main_program():
-	
+		
+def main_program(sleep_time):
 	currency, amount = get_total_balance()
 	currency_pair = []
 	for cur in currency:
@@ -146,7 +151,7 @@ def main_program():
 
 		print term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) ))
 		print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
+		time.sleep(sleep_time)
 
-
-
-main_program()
+sleep = parse_args()
+main_program(sleep)
