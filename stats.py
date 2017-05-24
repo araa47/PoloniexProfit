@@ -67,6 +67,15 @@ def get_balance():
 		print "Exception While Getting Balance: " + str(e)
 		raise Exception("Retry!")
 
+# Get OpenOrder
+@retry(wait_exponential_multiplier=100, wait_exponential_max=1000)
+def get_open_orders():
+	try:
+		open_order = pol.returnOpenOrders("all")
+		return open_order
+	except Exception as e:
+		print "Exception While Getting Orders: " + str(e)
+		raise Exception("Retry!")
 
 # Get the detailed Overview of any Currency Pair, currency_pair = ["BTC_STR"] = string list
 def get_overview(currency_pair):
@@ -76,8 +85,8 @@ def get_overview(currency_pair):
 	net_profit = 0.0
 	total_portfolio = 0.0 
 	for cur in currency_pair:
-
 		history = history_main[cur]
+		history = cleanHistory(history)
 		currency_ticker = all_ticker[cur]
 		purchase_price = float(history[0]['rate'])
 		purchase_fee = float(history[0]['fee'])
@@ -111,11 +120,41 @@ def get_overview(currency_pair):
 	
 	return btc_usd, total_portfolio
 
+# Gets history and combines if needed incase 2 seperate buys 
+def cleanHistory(history):
+	#print type(history)
+	list_history = []
+	if len(history) == 1:
+		return history
+	else:	
+		lasttrade = history[0]['type']
+		tradebeforethat = history[1]['type']
+		if lasttrade == tradebeforethat:
+			new_history ={}
+
+			new_history[u'fee'] = history[0]['fee']
+			new_history[u'amount'] = str(float(history[0]['amount']) + float(history[1]['amount']))
+
+			new_history[u'rate'] = str((float(history[0]['total']) + float(history[1]['total']))/float(new_history['amount']))
+			list_history.append(new_history)
+		
+			return list_history
+		else:
+			return history 
 
 
+# Parse through open orders only returning actual open orders
+def parse_orders():
+	open_order = get_open_orders()
+	currency = []
+	order = []
+	for key in open_order:
+		if len(open_order[key]) >= 1:
+			currency.append(key)
+			order.append(open_order[key])
+	return currency, order 
 
-
-
+# Parse through get balance only returning actual balances 
 def get_total_balance():
 	total_balance = get_balance()
 	balance_currency = []
@@ -126,6 +165,7 @@ def get_total_balance():
 			balance_amount.append(total_balance[key])
 	return balance_currency, balance_amount
 
+# Parse the -l argument for time sleep 
 def parse_args():
 	args = sys.argv 
 	try:
@@ -139,13 +179,28 @@ def parse_args():
 	else:
 		print "Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates" 
 		raise Exception("Try Again!")
+
+
+# 
 def main_program(sleep_time):
 	currency, amount = get_total_balance()
 	currency_pair = []
-	for cur in currency:
-		if cur != "BTC":
-			pair = "BTC_" + str(cur)
+	total_amount = []
+	# Get Balances
+	for i in range(len(currency)):
+		if currency[i] != "BTC":
+			pair = "BTC_" + str(currency[i])
 			currency_pair.append(pair)
+			total_amount.append(amount[i])
+	# Check Open Orders 
+	open_order_cur , open_order = parse_orders()
+
+	for cur_pair in open_order_cur:
+		if cur_pair not in currency_pair:
+			currency_pair.append(cur_pair)
+	
+	# Get overview of this list 
+
 	while True:
 		btc_usd, portfolio = get_overview(currency_pair)
 		# Include BTC savings in net portfolio value 
@@ -153,10 +208,18 @@ def main_program(sleep_time):
 			if currency[i] == "BTC":
 				total_btc = amount[i] 
 				portfolio += float(total_btc)
+		# Include Open orders 
 
 		print term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) ))
 		print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
 		time.sleep(sleep_time)
+
+
+
+
+
+
+
 
 sleep = parse_args()
 main_program(sleep)

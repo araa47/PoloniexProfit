@@ -75,8 +75,6 @@ python stats.py -l 2
 
 ## Extra Details 
 
-1) Currently the program only calculate BTC to other currency trades 
+1) Currently the program only calculates BTC to other currency trades 
 
-2) The program only works on the latest trade history 
-
-3) The program now icludes total BTC balance while calculating Net_Overview
+2) The program only works on the latest trade history. For example: You bought some ripple at 0.00011 and sold at 0.00021. Next you buy more ripple at 0.15. The program will only calculate your gains from the last trade. However your total gain can be seen by checking your total portfolio value. 
