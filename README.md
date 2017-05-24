@@ -63,7 +63,7 @@ pip install -r requirements.txt
 
 ## Running 
 
-In order to run the simple program, you need to give it a single parameter which is the amount of time between updates. In this example I have set my time to 2. 
+In order to run the simple program, you need to give it a single parameter which is the amount of time between updates. In this example I have set my time to 2 seconds. 
 
 ```
 python stats.py -l 2
