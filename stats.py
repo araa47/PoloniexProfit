@@ -29,7 +29,7 @@ def get_ticker():
 		all_ticker = pol.returnTicker()
 		return all_ticker
 	except Exception as e: 
-		print "Exception while Getting poloniex ticker: " + str(e)
+		print("Exception while Getting poloniex ticker: " + str(e))
 		raise Exception("Retry!")
 
 # Get BTC_USD rate from coinmarketcap
@@ -38,13 +38,13 @@ def get_btc_usd():
 	try:
 		coinmarketcap = Market()
 	except Exception as e:
-		print "Exception at coinmarketcap: " + str(e) 
+		print("Exception at coinmarketcap: " + str(e))
 		raise Exception("Retry!")
 	try: 
 		btc_usd = (json.loads(coinmarketcap.ticker("bitcoin")))[0]["price_usd"]
 		return btc_usd
 	except Exception as e:
-		print "Exception while parsing coinmarketcap Json: " + str(e)
+		print("Exception while parsing coinmarketcap Json: " + str(e))
 # Get history of trades
 @retry(wait_exponential_multiplier=100, wait_exponential_max=1000)
 def get_history():
@@ -54,7 +54,7 @@ def get_history():
 		history = pol.returnTradeHistory("all",start, end )
 		return history
 	except Exception as e:
-		print "Exception While Getting poloniex history: " + str(e)
+		print("Exception While Getting poloniex history: " + str(e))
 		raise Exception("Retry!")
 
 # Get currency balance
@@ -64,7 +64,7 @@ def get_balance():
 		total_balance = pol.returnBalances()
 		return total_balance
 	except Exception as e:
-		print "Exception While Getting Balance: " + str(e)
+		print("Exception While Getting Balance: " + str(e))
 		raise Exception("Retry!")
 
 # Get OpenOrder
@@ -74,7 +74,7 @@ def get_open_orders():
 		open_order = pol.returnOpenOrders("all")
 		return open_order
 	except Exception as e:
-		print "Exception While Getting Orders: " + str(e)
+		print("Exception While Getting Orders: " + str(e))
 		raise Exception("Retry!")
 
 # Get the detailed Overview of any Currency Pair, currency_pair = ["BTC_STR"] = string list
@@ -97,26 +97,26 @@ def get_overview(currency_pair):
 		current_price = currency_ticker['last']
 		profit_btc = ((float(current_price)) - average_cost) * (purchase_real_amount)
 		profit = float(profit_btc) * float(btc_usd)
-		print term.bold_bright_blue_on_black("------------------------------------------{}--------------------------------------------")
-		print "You invested {} BTC for {} {}/ at {} BTC/{}".format(purchase_cost, (purchase_real_amount), cur.split("_")[1],
-																	   purchase_price,cur.split("_")[1])
-		print "Your Purchase Price with fees: {} BTC".format(str(average_cost))
-		print "Current_Price: " + str(current_price)
+		print(term.bold_bright_blue_on_black("------------------------------------------{}--------------------------------------------"))
+		print("You invested {} BTC for {} {}/ at {} BTC/{}".format(purchase_cost, (purchase_real_amount), cur.split("_")[1],
+																	   purchase_price,cur.split("_")[1]))
+		print("Your Purchase Price with fees: {} BTC".format(str(average_cost)))
+		print("Current_Price: " + str(current_price))
 		net_profit += profit 
 		total_portfolio = total_portfolio +  float((purchase_real_amount * float(current_price)))
 		if profit < 0:
 		
 			 
-			print term.bold_bright_red_on_black('Loss                  {} BTC/{} USD'.format(profit_btc, profit))
+			print(term.bold_bright_red_on_black('Loss                  {} BTC/{} USD'.format(profit_btc, profit)))
 		else:
 					 
 
-			print term.bold_yellow_on_black('Profit                 {} BTC/{} USD'.format(profit_btc, profit))
+			print(term.bold_yellow_on_black('Profit                 {} BTC/{} USD'.format(profit_btc, profit)))
 
 	if net_profit < 0:
-		print term.bold_bright_red_on_black('Net Loss                  {} USD'.format(net_profit))
+		print(term.bold_bright_red_on_black('Net Loss                  {} USD'.format(net_profit)))
 	else:
-		print term.yellow('Net Profit                 {} USD'.format(net_profit))
+		print(term.yellow('Net Profit                 {} USD'.format(net_profit)))
 	
 	return btc_usd, total_portfolio
 
@@ -173,11 +173,11 @@ def parse_args():
 			sleep_time = args[2]
 			return float(sleep_time)
 	except Exception as e:
-		print "Exception: " + str(e)
-		print "Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates" 
+		print("Exception: " + str(e))
+		print("Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates")
 		raise Exception("Try Again!")
 	else:
-		print "Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates" 
+		print("Please type: python stats.py -l time, in order to run the program. Time should be set to a value in seconds between updates")
 		raise Exception("Try Again!")
 
 
@@ -210,8 +210,8 @@ def main_program(sleep_time):
 				portfolio += float(total_btc)
 		# Include Open orders 
 
-		print term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) ))
-		print term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------")
+		print(term.bold_bright_white_on_black("Total Portfolio Value: " + str(portfolio) + "     USD: " + str(portfolio* float(btc_usd) )))
+		print(term.bold_bright_white_on_black("------------------------------------------{}--------------------------------------------"))
 		time.sleep(sleep_time)
 
 
